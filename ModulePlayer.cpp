@@ -21,20 +21,20 @@ bool ModulePlayer::Start()
 	VehicleInfo car;
 
 	// Car properties ----------------------------------------
-	car.chassis_size.Set(2, 2, 4);
-	car.chassis_offset.Set(0, 1.5, 0);
-	car.mass = 500.0f;
-	car.suspensionStiffness = 15.88f;
-	car.suspensionCompression = 0.83f;
+	car.chassis_size.Set(3, 1, 5);
+	car.chassis_offset.Set(0, 0.75f, 0);
+	car.mass = 400.0f;
+	car.suspensionStiffness = 30.0f;
+	car.suspensionCompression = 1.0f;
 	car.suspensionDamping = 0.88f;
-	car.maxSuspensionTravelCm = 1000.0f;
-	car.frictionSlip = 50.5;
+	car.maxSuspensionTravelCm = 400.0f;
+	car.frictionSlip = 10.5;
 	car.maxSuspensionForce = 6000.0f;
 
 	// Wheel properties ---------------------------------------
 	float connection_height = 1.2f;
-	float wheel_radius = 0.6f;
-	float wheel_width = 0.5f;
+	float wheel_radius = 0.5f;
+	float wheel_width = 0.3f;
 	float suspensionRestLength = 1.2f;
 
 	// Don't change anything below this line ------------------
@@ -115,28 +115,46 @@ update_status ModulePlayer::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
 
+	vec3 airturn = { 0,0,0 };
+
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
 		acceleration = MAX_ACCELERATION;
+
+		airturn = { 0, 0, 2.5f };
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
 		if(turn < TURN_DEGREES)
 			turn +=  TURN_DEGREES;
+
+		airturn = { -1.5f,0,0 };
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
 		if(turn > -TURN_DEGREES)
 			turn -= TURN_DEGREES;
+
+		
+		airturn = { 1.5f, 0, 0 };
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
+		acceleration = -MAX_ACCELERATION/2;
+
+		
+		airturn = { 0,0,-2.5f };
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
+	{
 		brake = BRAKE_POWER;
 	}
 
+	AirTurn(airturn);
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
@@ -150,5 +168,57 @@ update_status ModulePlayer::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
+void ModulePlayer::AirTurn(vec3 & turn)
+{
+	if (turn.x != 0 || turn.z != 0) {
 
+		int dir_axis = vehicle->vehicle->getForwardAxis();
+		btVector3 n_dir_axis = vehicle->vehicle->getForwardVector();
+		
+		vec3 test = { n_dir_axis.getX(), n_dir_axis.getY(), n_dir_axis.getZ() };
+		if (test.x >= test.y && test.x >= test.z) {
+			test.y /= test.x;
+			test.z /= test.x;
+			test.x = 1;
+		}
+		else if (test.y >= test.x && test.y >= test.z) {
+			test.x /= test.y;
+			test.z /= test.y;
+			test.y = 1;
+		}
+		else if (test.z >= test.y && test.z >= test.x) {
+			test.y /= test.z;
+			test.x /= test.z;
+			test.z = 1;
+		}
 
+		turn = RotatedTurn(turn, test);
+
+		
+		vehicle->PushDyn(-10, turn);
+	
+	}
+	
+}
+
+vec3 ModulePlayer::RotatedTurn(vec3& turn, vec3& axis)
+{
+	vec3 ret = { 0,0,0 };
+	// x= yz y = xz z = yx
+
+	vec3 Euler = { (float)acos((turn.y*axis.y + turn.z*axis.z) / ((sqrt(turn.y*turn.y + turn.z*turn.z)*(axis.y*axis.y + axis.z*axis.z)))),
+					(float)acos((turn.x*axis.x + turn.z*axis.z) / ((sqrt(turn.x*turn.x + turn.z*turn.z)*(axis.x*axis.x + axis.z*axis.z)))),
+					(float)acos((turn.y*axis.y + turn.x*axis.x) / ((sqrt(turn.y*turn.y + turn.x*turn.x)*(axis.y*axis.y + axis.x*axis.x)))) };
+
+	vec3 turnx = {turn.x, 0, 0};
+	vec3 turny = { 0,turn.y,0 };
+	vec3 turnz = { 0,0,turn.z };
+
+	mat4x4 rot_x = rotate(Euler.x, turnx);
+	mat4x4 rot_y = rotate(Euler.y, turny);
+	mat4x4 rot_z = rotate(Euler.z, turnz);
+
+	ret = { (turnx.x + turny.x + turnz.x),(turnx.y + turny.y + turnz.y),(turnx.z + turny.z + turnz.z) };
+
+	return ret;
+}

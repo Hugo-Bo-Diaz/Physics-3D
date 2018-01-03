@@ -2,11 +2,12 @@
 #include "Module.h"
 #include "Globals.h"
 #include "p2Point.h"
+#include "glmath.h"
 
 struct PhysVehicle3D;
 
 #define MAX_ACCELERATION 1000.0f
-#define TURN_DEGREES 15.0f * DEGTORAD
+#define TURN_DEGREES 35.0f * DEGTORAD
 #define BRAKE_POWER 1000.0f
 
 class ModulePlayer : public Module
@@ -25,4 +26,13 @@ public:
 	float turn;
 	float acceleration;
 	float brake;
+
+public:
+	//Own Code, new Mechanic - Aerial Control
+
+	void AirTurn(vec3& turn);
+
+	vec3 RotatedTurn(vec3& turn, vec3& axis);
+
+
 };

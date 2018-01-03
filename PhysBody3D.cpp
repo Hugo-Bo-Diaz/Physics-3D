@@ -1,5 +1,5 @@
 #include "PhysBody3D.h"
-#include "glmath.h"
+
 #include "Bullet/include/btBulletDynamicsCommon.h"
 
 // =================================================
@@ -18,6 +18,13 @@ PhysBody3D::~PhysBody3D()
 void PhysBody3D::Push(float x, float y, float z)
 {
 	body->applyCentralImpulse(btVector3(x, y, z));
+}
+
+void PhysBody3D::PushDyn(float magnitude, vec3& test)
+{
+	
+	btVector3 impulse_point = body->getCenterOfMassPosition() + btVector3(test.x,test.y,test.z);
+	body->applyImpulse({ 0,magnitude,0 }, impulse_point);
 }
 
 // ---------------------------------------------------------

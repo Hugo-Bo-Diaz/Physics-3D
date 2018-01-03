@@ -2,6 +2,7 @@
 #define __PhysBody3D_H__
 
 #include "p2List.h"
+#include "glmath.h"
 
 class btRigidBody;
 class Module;
@@ -27,6 +28,10 @@ private:
 
 public:
 	p2List<Module*> collision_listeners;
+
+public:
+	//Own Code, new Mechanincs
+	void PushDyn(float magnitude, vec3& test);
 };
 
 #endif // __PhysBody3D_H__
