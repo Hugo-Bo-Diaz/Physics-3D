@@ -9,6 +9,16 @@
 struct PhysBody3D;
 struct PhysMotor3D;
 
+struct CircuitPart {
+	PhysBody3D* body;
+	Primitive* shape;
+
+	~CircuitPart()
+	{
+		
+	}
+};
+
 class ModuleSceneIntro : public Module
 {
 public:
@@ -24,4 +34,6 @@ public:
 public:
 	Cube s;
 	PhysBody3D* sensor;
+
+	p2List<CircuitPart*> circuit;
 };

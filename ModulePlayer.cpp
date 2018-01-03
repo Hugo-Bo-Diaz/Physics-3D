@@ -26,7 +26,7 @@ bool ModulePlayer::Start()
 	car.mass = 400.0f;
 	car.suspensionStiffness = 30.0f;
 	car.suspensionCompression = 1.0f;
-	car.suspensionDamping = 0.88f;
+	car.suspensionDamping = 2.0f;
 	car.maxSuspensionTravelCm = 400.0f;
 	car.frictionSlip = 10.5;
 	car.maxSuspensionForce = 6000.0f;
@@ -154,7 +154,7 @@ update_status ModulePlayer::Update(float dt)
 		brake = BRAKE_POWER;
 	}
 
-	AirTurn(airturn);
+	//AirTurn(airturn);
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
