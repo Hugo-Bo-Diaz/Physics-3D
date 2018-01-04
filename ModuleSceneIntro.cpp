@@ -21,7 +21,7 @@ bool ModuleSceneIntro::Start()
 	App->camera->LookAt(vec3(0, 0, 0));
 
 	s.size = vec3(12, 3, 1);
-	s.SetPos(0, 2.5f, 20);
+	s.SetPos(0, 2.501f, 20);
 
 	sensor = App->physics->AddBody(s, 0.0f);
 	sensor->SetAsSensor(true);
@@ -95,11 +95,17 @@ update_status ModuleSceneIntro::Update(float dt)
 		item = item->next;
 	}
 
+	
+
 	return UPDATE_CONTINUE;
 }
 
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
-	LOG("Hit!");
+	if (body1->IsSensor() || body2->IsSensor()) {
+		LOG("Hit!");
+
+	}
+
 }
 
