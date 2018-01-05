@@ -34,5 +34,6 @@ public:
 
 	vec3 RotatedTurn(vec3& turn, vec3& axis);
 
+	//vec3 bttovec3(btVector3 vector);
 
 };

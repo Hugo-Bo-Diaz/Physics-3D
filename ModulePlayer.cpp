@@ -110,6 +110,19 @@ bool ModulePlayer::CleanUp()
 	return true;
 }
 
+//
+//vec3 ModulePlayer::bttovec3(btVector3 vector)
+//{
+//	vec3 ret;
+//
+//	ret.x = vector.x();
+//	ret.y = vector.y();
+//	ret.z = vector.z();
+//
+//	return ret;
+//}
+
+
 // Update: draw background
 update_status ModulePlayer::Update(float dt)
 {
@@ -160,6 +173,25 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->Brake(brake);
 
 	vehicle->Render();
+
+	vec3 cam_org;
+	vec3 cam_dest;
+
+	btTransform transform = App->player->vehicle->vehicle->getChassisWorldTransform();
+	btVector3 car_pos = transform.getOrigin();
+	btVector3 car_dir = transform.getBasis().getColumn(2);
+
+	float angle = atan2(car_dir.z(), car_dir.x())+ 3.1415926535897932384626433832795028841971693993751058209749445923078164;
+	
+	cam_org.x = 10 * cos(angle) + car_pos.x();
+	cam_org.z = 10 * sin(angle) + car_pos.z();
+	cam_org.y = 7 + car_pos.y();
+
+	cam_dest.x = car_pos.x();
+	cam_dest.y = car_pos.y();
+	cam_dest.z = car_pos.z();
+
+	App->camera->Look(cam_org, cam_dest);
 
 	char title[80];
 	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
