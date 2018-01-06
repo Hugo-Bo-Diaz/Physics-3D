@@ -36,4 +36,8 @@ public:
 
 	//vec3 bttovec3(btVector3 vector);
 
+
+public:
+	int laps;
+
 };

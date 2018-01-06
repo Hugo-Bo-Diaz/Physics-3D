@@ -23,11 +23,12 @@ public:
 	bool IsSensor() const;
 
 private:
-	btRigidBody* body = nullptr;
+	
 	bool is_sensor = false;
 
 public:
 	p2List<Module*> collision_listeners;
+	btRigidBody* body = nullptr;
 
 public:
 	//Own Code, new Mechanincs

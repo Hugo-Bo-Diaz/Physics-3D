@@ -3,6 +3,7 @@
 #include "p2DynArray.h"
 #include "Globals.h"
 #include "Primitive.h"
+#include "PhysVehicle3D.h"
 
 #define MAX_SNAKE 2
 
@@ -19,6 +20,12 @@ struct CircuitPart {
 	}
 };
 
+struct Sensor {
+	Cube* shape;
+	PhysBody3D* body;
+	int id;
+};
+
 class ModuleSceneIntro : public Module
 {
 public:
@@ -31,9 +38,20 @@ public:
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 
+	void SetToCP(PhysVehicle3D* v);
+
 public:
-	Cube s;
-	PhysBody3D* sensor;
+
+	//Plane p;
+	Cube* pl;
+	PhysBody3D* plane_sensor;
 
 	p2List<CircuitPart*> circuit;
+
+	p2List<Sensor*> sensors;
+
+	int last_cp = 1;
+
+	bool set_to_cp = false;
+
 };

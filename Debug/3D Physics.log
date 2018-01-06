@@ -1,13 +1,13 @@
 ﻿  ModuleSceneIntro.cpp
-c:\users\hugo\documents\github\physics 3d\modulesceneintro.cpp(49): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\hugo\documents\github\physics 3d\modulesceneintro.cpp(49): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\hugo\documents\github\physics 3d\modulesceneintro.cpp(74): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\hugo\documents\github\physics 3d\modulesceneintro.cpp(87): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\hugo\documents\github\physics 3d\modulesceneintro.cpp(105): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\hugo\documents\github\physics 3d\modulesceneintro.cpp(123): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\hugo\documents\github\physics 3d\modulesceneintro.cpp(141): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\hugo\documents\github\physics 3d\modulesceneintro.cpp(153): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\hugo\documents\github\physics 3d\modulesceneintro.cpp(167): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\hugo\documents\github\physics 3d\modulesceneintro.cpp(333): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  3D Physics.vcxproj -> C:\Users\Hugo\Documents\GitHub\Physics 3D\Debug\3D Physics - class6.exe
-  3D Physics.vcxproj -> C:\Users\Hugo\Documents\GitHub\Physics 3D\Debug\3D Physics - class6.pdb (Full PDB)
+d:\marcfly\documents\github\physics-3d\modulesceneintro.cpp(64): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\marcfly\documents\github\physics-3d\modulesceneintro.cpp(64): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\marcfly\documents\github\physics-3d\modulesceneintro.cpp(89): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\marcfly\documents\github\physics-3d\modulesceneintro.cpp(102): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\marcfly\documents\github\physics-3d\modulesceneintro.cpp(120): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\marcfly\documents\github\physics-3d\modulesceneintro.cpp(138): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\marcfly\documents\github\physics-3d\modulesceneintro.cpp(156): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\marcfly\documents\github\physics-3d\modulesceneintro.cpp(168): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\marcfly\documents\github\physics-3d\modulesceneintro.cpp(182): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\marcfly\documents\github\physics-3d\modulesceneintro.cpp(348): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\marcfly\documents\github\physics-3d\modulesceneintro.cpp(484): warning C4390: ';': empty controlled statement found; is this the intent?
+  3D Physics.vcxproj -> D:\MarcFly\Documents\Github\Physics-3D\Debug\3D Physics - class6.exe

@@ -20,12 +20,27 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
-	s.size = vec3(12, 3, 1);
-	s.SetPos(0, 2.501f, 20);
+	Sensor* s1 = new Sensor;
+	s1->shape = new Cube;
+	s1->shape->size = vec3(12, 3, 1);
+	s1->shape->SetPos(0, 2.501f, 20);
 
-	sensor = App->physics->AddBody(s, 0.0f);
-	sensor->SetAsSensor(true);
-	sensor->collision_listeners.add(this);
+	s1->body = App->physics->AddBody(*s1->shape, 0.0f);
+	s1->body->SetAsSensor(true);
+	s1->body->collision_listeners.add(this);
+
+	s1->id = 1;
+
+	sensors.add(s1);
+	/*p.normal = { 0,1,0 };
+	p.constant = 0;*/
+	pl = new Cube;
+	pl->size = { 1000, 1, 1000 };
+	pl->SetPos(10, 0, 0);
+	
+	plane_sensor = App->physics->AddBody(*pl, 0);
+	plane_sensor->SetAsSensor(true);
+	plane_sensor->collision_listeners.add(this);
 
 	//Create Map
 
@@ -420,18 +435,24 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.axis = true;
 	p.Render();
 
-	sensor->GetTransform(&s.transform);
-	s.Render();
+	pl->Render();
 
-	p2List_item<CircuitPart*>*  item = circuit.getFirst();
-
+	p2List_item<Sensor*>* item = sensors.getFirst();
 	while (item != NULL) {
-		
 		item->data->shape->Render();
-
 		item = item->next;
 	}
 
+	p2List_item<CircuitPart*>*  item_2 = circuit.getFirst();
+
+	while (item_2 != NULL) {
+		
+		item_2->data->shape->Render();
+
+		item_2 = item_2->next;
+	}
+
+	
 	
 
 	return UPDATE_CONTINUE;
@@ -439,10 +460,54 @@ update_status ModuleSceneIntro::Update(float dt)
 
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
-	if (body1->IsSensor() || body2->IsSensor()) {
-		LOG("Hit!");
+	if (body1->IsSensor()) {
+		if (body1 == plane_sensor) {
+			if(body2->body->getCenterOfMassPosition() == App->player->vehicle->body->getCenterOfMassPosition())
+				set_to_cp = true;
+		
+		}
+		else {
+			p2List_item<Sensor*> *item = sensors.getFirst();
+			while (item != NULL) {
+				if (body1 == item->data->body) {
+					last_cp = item->data->id;
+					break;
+				}
+				item = item->next;
+			}
+		}
 
+		
 	}
+	else if (body2->IsSensor()) {
+		if (body2 == plane_sensor) {
+			if (body1->body->getCenterOfMassTransform() == App->player->vehicle->body->getCenterOfMassTransform());
+				set_to_cp = true;
+		
+		}
+		else {
+			p2List_item<Sensor*> *item = sensors.getFirst();
+			while (item != NULL) {
+				if (body2 == item->data->body) {
+					last_cp = item->data->id;
+					break;
+				}
+				item = item->next;
+			}
+		}
+	}
+
+}
+
+void ModuleSceneIntro::SetToCP(PhysVehicle3D* v){
+	p2List_item<Sensor*>*item = sensors.getFirst();
+	while (item != NULL) {
+		if (item->data->id == last_cp)
+			break;
+		item = item->next;
+	}
+
+	v->body->setCenterOfMassTransform(item->data->body->body->getCenterOfMassTransform());
 
 }
 
