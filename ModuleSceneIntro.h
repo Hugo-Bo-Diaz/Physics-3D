@@ -44,6 +44,12 @@ public:
 
 	//Plane p;
 	Cube* pl;
+	Cube* p2;
+	Cube* p3;
+	Cube* p4;
+	Cube* p5;
+	Cube* p6;
+
 	PhysBody3D* plane_sensor;
 
 	p2List<CircuitPart*> circuit;
