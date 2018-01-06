@@ -399,6 +399,111 @@ bool ModuleSceneIntro::Start()
 		circuit.add(part);
 	}
 
+//HAZARDS
+	{//1
+		CircuitPart* part = new CircuitPart;
+		Sphere* shape = new Sphere;
+
+		shape->radius = 3;
+		//shape->height = 3;
+			shape->SetPos(0, -1, 57);
+			shape->SetRotation(90, { 0,0,1 });
+
+
+		part->body = App->physics->AddBody(*shape, 0);
+		part->shape = shape;
+		circuit.add(part);
+	}
+
+	{//2
+		CircuitPart* part = new CircuitPart;
+		Sphere* shape = new Sphere;
+
+		shape->radius = 3;
+		//shape->height = 3;
+		shape->SetPos(1, -1, 45);
+		shape->SetRotation(90, { 0,0,1 });
+
+
+		part->body = App->physics->AddBody(*shape, 0);
+		part->shape = shape;
+		circuit.add(part);
+	}
+
+	{//3
+		CircuitPart* part = new CircuitPart;
+		Sphere* shape = new Sphere;
+
+		shape->radius = 3;
+		//shape->height = 3;
+		shape->SetPos(10, -1, 35);
+		shape->SetRotation(90, { 0,0,1 });
+
+
+		part->body = App->physics->AddBody(*shape, 0);
+		part->shape = shape;
+		circuit.add(part);
+	}
+
+	{//4
+		CircuitPart* part = new CircuitPart;
+		Sphere* shape = new Sphere;
+
+		shape->radius = 3;
+		//shape->height = 3;
+		shape->SetPos(-5, -1, 70);
+		shape->SetRotation(90, { 0,0,1 });
+
+
+		part->body = App->physics->AddBody(*shape, 0);
+		part->shape = shape;
+		circuit.add(part);
+	}
+
+	{//5
+		CircuitPart* part = new CircuitPart;
+		Sphere* shape = new Sphere;
+
+		shape->radius = 3;
+		//shape->height = 3;
+		shape->SetPos(5, -1, 60);
+		shape->SetRotation(90, { 0,0,1 });
+
+
+		part->body = App->physics->AddBody(*shape, 0);
+		part->shape = shape;
+		circuit.add(part);
+	}
+
+	{//6
+		CircuitPart* part = new CircuitPart;
+		Sphere* shape = new Sphere;
+
+		shape->radius = 3;
+		//shape->height = 3;
+		shape->SetPos(15, -1, 50);
+		shape->SetRotation(90, { 0,0,1 });
+
+
+		part->body = App->physics->AddBody(*shape, 0);
+		part->shape = shape;
+		circuit.add(part);
+	}
+
+	{//7
+		CircuitPart* part = new CircuitPart;
+		Sphere* shape = new Sphere;
+
+		shape->radius = 3;
+		//shape->height = 3;
+		shape->SetPos(10, -1, 45);
+		shape->SetRotation(90, { 0,0,1 });
+
+
+		part->body = App->physics->AddBody(*shape, 0);
+		part->shape = shape;
+		circuit.add(part);
+	}
 	return ret;
 }
 
