@@ -557,8 +557,10 @@ update_status ModuleSceneIntro::Update(float dt)
 		item_2 = item_2->next;
 	}
 
-	
-	
+	if (reset_timer.Read() < 1000) {
+		App->player->vehicle->body->applyGravity();
+		App->player->vehicle->body->applyGravity();
+	}
 
 	return UPDATE_CONTINUE;
 }
@@ -575,8 +577,17 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			p2List_item<Sensor*> *item = sensors.getFirst();
 			while (item != NULL) {
 				if (body1 == item->data->body) {
-					last_cp = item->data->id;
-					break;
+					if (last_cp == item->data->id - 1) {
+						last_cp = item->data->id;
+						break;
+					}
+					else if (last_cp == 6 && item->data->id == 1) {
+						last_cp = item->data->id;
+						App->player->laps += 1;
+						if (App->player->high_score > App->player->timer.Read())
+							App->player->high_score = App->player->timer.Read();
+						break;
+					}
 				}
 				item = item->next;
 			}
@@ -594,8 +605,17 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			p2List_item<Sensor*> *item = sensors.getFirst();
 			while (item != NULL) {
 				if (body2 == item->data->body) {
-					last_cp = item->data->id;
-					break;
+					if (last_cp == item->data->id - 1) {
+						last_cp = item->data->id;
+						break;
+					}
+					else if (last_cp == 6 && item->data->id == 1) {
+						last_cp = item->data->id;
+						App->player->laps += 1;
+						if (App->player->high_score > App->player->timer.Read())
+							App->player->high_score = App->player->timer.Read();
+						break;
+					}
 				}
 				item = item->next;
 			}
@@ -613,6 +633,10 @@ void ModuleSceneIntro::SetToCP(PhysVehicle3D* v){
 	}
 
 	v->body->setCenterOfMassTransform(item->data->body->body->getCenterOfMassTransform());
-
+	
+	btVector3 pos = v->body->getCenterOfMassPosition();
+	v->SetPos(pos.getX(), pos.getY() - 1.3f, pos.getZ());
+	v->Brake(1000000);
+	reset_timer.Start();
 }
 

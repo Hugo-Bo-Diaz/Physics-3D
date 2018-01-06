@@ -4,6 +4,7 @@
 #include "Globals.h"
 #include "Primitive.h"
 #include "PhysVehicle3D.h"
+#include "Timer.h"
 
 #define MAX_SNAKE 2
 
@@ -53,5 +54,7 @@ public:
 	int last_cp = 1;
 
 	bool set_to_cp = false;
+
+	Timer reset_timer;
 
 };

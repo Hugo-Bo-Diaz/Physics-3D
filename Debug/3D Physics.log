@@ -9,5 +9,12 @@ d:\marcfly\documents\github\physics-3d\modulesceneintro.cpp(156): warning C4244:
 d:\marcfly\documents\github\physics-3d\modulesceneintro.cpp(168): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 d:\marcfly\documents\github\physics-3d\modulesceneintro.cpp(182): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 d:\marcfly\documents\github\physics-3d\modulesceneintro.cpp(348): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\marcfly\documents\github\physics-3d\modulesceneintro.cpp(484): warning C4390: ';': empty controlled statement found; is this the intent?
+d:\marcfly\documents\github\physics-3d\modulesceneintro.cpp(587): warning C4018: '>': signed/unsigned mismatch
+d:\marcfly\documents\github\physics-3d\modulesceneintro.cpp(615): warning C4018: '>': signed/unsigned mismatch
+d:\marcfly\documents\github\physics-3d\modulesceneintro.cpp(600): warning C4390: ';': empty controlled statement found; is this the intent?
+  ModulePlayer.cpp
+d:\marcfly\documents\github\physics-3d\moduleplayer.cpp(191): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+d:\marcfly\documents\github\physics-3d\moduleplayer.cpp(193): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\marcfly\documents\github\physics-3d\moduleplayer.cpp(194): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
   3D Physics.vcxproj -> D:\MarcFly\Documents\Github\Physics-3D\Debug\3D Physics - class6.exe

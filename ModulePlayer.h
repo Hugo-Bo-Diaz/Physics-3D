@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include "p2Point.h"
 #include "glmath.h"
+#include "Timer.h"
 
 struct PhysVehicle3D;
 
@@ -39,5 +40,7 @@ public:
 
 public:
 	int laps;
+	Timer timer;
 
+	int high_score = 0;
 };

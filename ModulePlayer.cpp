@@ -23,10 +23,10 @@ bool ModulePlayer::Start()
 	// Car properties ----------------------------------------
 	car.chassis_size.Set(3, 1, 5);
 	car.chassis_offset.Set(0, 0.75f, 0);
-	car.mass = 400.0f;
-	car.suspensionStiffness = 30.0f;
+	car.mass = 600.0f;
+	car.suspensionStiffness = 20.0f;
 	car.suspensionCompression = 1.0f;
-	car.suspensionDamping = 2.0f;
+	car.suspensionDamping = 0.5f;
 	car.maxSuspensionTravelCm = 400.0f;
 	car.frictionSlip = 10.5;
 	car.maxSuspensionForce = 6000.0f;
@@ -99,6 +99,8 @@ bool ModulePlayer::Start()
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->SetPos(0, 3, 10);
 	
+	timer.Start();
+
 	return true;
 }
 
@@ -162,9 +164,14 @@ update_status ModulePlayer::Update(float dt)
 		airturn = { 0,0,-2.5f };
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT || App->scene_intro->reset_timer.Read() < 1000)
 	{
 		brake = BRAKE_POWER;
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+	{
+		App->scene_intro->set_to_cp = true;
 	}
 
 	//AirTurn(airturn);
@@ -194,7 +201,17 @@ update_status ModulePlayer::Update(float dt)
 	App->camera->Look(cam_org, cam_dest);
 
 	char title[80];
-	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
+	int ticks = timer.Read();
+	int min = ticks / 60000;
+	int sec = ticks / 1000;
+	int mil_sec = ticks - min * 60000 - sec * 1000;
+
+	int ticks2 = high_score;
+	int min2 = ticks2 / 60000;
+	int sec2 = ticks2 / 1000;
+	int mil_sec2 = ticks2 - min * 60000 - sec * 1000;
+
+	sprintf_s(title, "%.1f Km/h - %d:%d:%d CurrLapTime - %d:%d:%d HighScore", vehicle->GetKmh(),min,sec,mil_sec,min2,sec2,mil_sec2);
 	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;
